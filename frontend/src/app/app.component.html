@@ -1,0 +1,83 @@
+<div class="container py-4">
+
+  <header class="text-center mb-4">
+    <h1><i class="bi bi-journal-richtext"></i> Menu Ristorante</h1>
+    <p class="text-muted">Gestione digitale dei piatti e delle categorie</p>
+  </header>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div class="btn-group mb-4">
+    <button class="btn btn-primary" (click)="view='dishes'">Piatti</button>
+    <button class="btn btn-secondary" (click)="view='categories'">Categorie</button>
+  </div>
+
+  <!-- VISTA PIATTI -->
+  <div *ngIf="view === 'dishes'">
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4>Aggiungi Nuovo Piatto</h4>
+
+        <input [(ngModel)]="newDish.name" class="form-control mb-2" placeholder="Nome piatto">
+        <input [(ngModel)]="newDish.description" class="form-control mb-2" placeholder="Descrizione">
+        <input [(ngModel)]="newDish.price" type="number" class="form-control mb-2" placeholder="Prezzo">
+
+        <button class="btn btn-success" (click)="addDish()">
+          <i class="bi bi-plus-circle"></i> Inserisci
+        </button>
+      </div>
+    </div>
+
+    <div class="card mb-3" *ngFor="let dish of dishes">
+      <div class="card-body">
+        <h5>{{dish.name}} - € {{dish.price}}</h5>
+        <p>{{dish.description}}</p>
+
+        <div class="mb-2">
+          <span *ngFor="let cat of dish.categories" class="badge bg-info text-dark me-1">
+            {{cat.name}}
+          </span>
+        </div>
+
+        <div class="d-flex gap-2">
+          <select class="form-select" [(ngModel)]="selectedCategories[dish.id]">
+            <option [ngValue]="null">Seleziona categoria</option>
+            <option *ngFor="let cat of categories" [ngValue]="cat.id">
+              {{cat.name}}
+            </option>
+          </select>
+
+          <button class="btn btn-warning" (click)="addCategoryToDish(dish.id)">
+            Aggiungi
+          </button>
+
+          <button class="btn btn-danger" (click)="deleteDish(dish.id)">
+            Elimina
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VISTA CATEGORIE -->
+  <div *ngIf="view === 'categories'">
+    <div class="card mb-2" *ngFor="let cat of categories">
+      <div class="card-body">
+        {{cat.name}}
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center mt-5 text-muted">
+    Applicazione Menu Ristorante - Angular + Express + MySQL
+  </footer>
+
+</div>

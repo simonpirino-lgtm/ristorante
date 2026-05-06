@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "frontend-app": {
+    "ristoranteFE": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend-app:build:production"
+              "buildTarget": "ristoranteFE:build:production"
             },
             "development": {
-              "buildTarget": "frontend-app:build:development"
+              "buildTarget": "ristoranteFE:build:development"
             }
           },
           "defaultConfiguration": "development"
